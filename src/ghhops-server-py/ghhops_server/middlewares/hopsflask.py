@@ -34,11 +34,11 @@ class HopsFlask(base.HopsBase):
             if res:
                 response = self._prep_response()
                 response.data = results
+                return response(environ, start_response)
             else:
-                response = self._prep_response(404, "Unknown URI")
-            return response(environ, start_response)
-
-        elif method == "POST":
+                return self.wsgi_app(environ, start_response)
+        
+	elif method == "POST":
             data = request.data
             res, results = self.solve(uri=comp_uri, payload=data)
             if res:
