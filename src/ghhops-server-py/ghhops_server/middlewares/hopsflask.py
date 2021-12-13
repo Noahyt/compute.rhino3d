@@ -37,8 +37,8 @@ class HopsFlask(base.HopsBase):
                 return response(environ, start_response)
             else:
                 return self.wsgi_app(environ, start_response)
-        
-	elif method == "POST":
+
+        elif method == "POST":
             data = request.data
             res, results = self.solve(uri=comp_uri, payload=data)
             if res:
